@@ -17,7 +17,9 @@ class App extends Component {
     let prevState = this.state.characterSelect.slice();
     let score = this.state.score;
     let highScore = this.state.highScore;
-    console.log(prevState, score, highScore)
+
+    console.log(id)
+
   }
 
   render () {
