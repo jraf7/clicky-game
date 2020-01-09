@@ -3,6 +3,14 @@ import {Character, Footer, Header, Wrapper} from "./components/index";
 import characters from "./characters.json";
 import './App.css';
 
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 class App extends Component {
 
   state = {
@@ -13,14 +21,17 @@ class App extends Component {
     message: ""
   };
 
-  clicked = (id) => {
+  clicked = key => {
     let prevState = this.state.characterSelect.slice();
     let score = this.state.score;
     let highScore = this.state.highScore;
 
-    console.log(id)
-
+    this.makeShuffle()
   }
+
+  makeShuffle(){
+    this.setState({characters: shuffle(characters)});
+  };
 
   render () {
     return (
@@ -33,8 +44,6 @@ class App extends Component {
          alt={character.key}
          key={character.key}
          clicked={this.clicked}
-        //  id={character.id}
-        //  key={character.id}
          />
        ))}
       </Wrapper>
