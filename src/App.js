@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component} from 'react';
+import {Character, Footer, Header, Wrapper} from "./components/index";
+import characters from "./characters.json";
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  state = {
+    characters,
+    characterSelect: [],
+    score: 0,
+    highScore: 0,
+    message: ""
+  };
+
+  clicked = (id) => {
+    let prevState = this.state.characterSelect.slice();
+    let score = this.state.score;
+    let highScore = this.state.highScore;
+    console.log(prevState, score, highScore)
+  }
+
+  render () {
+    return (
+      <>
+      <Header state={this.state} />
+      <Wrapper>
+       {this.state.characters.map( character => (
+        <Character 
+         image={character.image}
+         alt={character.key}
+         key={character.key}
+         clicked={this.clicked}
+        //  id={character.id}
+        //  key={character.id}
+         />
+       ))}
+      </Wrapper>
+      <Footer />
+      </>
+    )
+  }
+
 }
 
 export default App;
