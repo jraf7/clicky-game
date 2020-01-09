@@ -6,9 +6,9 @@ function Character (props) {
             <img 
                 className="card-img-top"
                 src= {props.image}
-                alt= {props.key}                
-                id= {props.key}
-                onClick= {() => props.clicked(props.key)}
+                alt= ""               
+                id= {props.id}
+                onClick= {() => props.clicked(props.id)}
             />
         </div>
     )

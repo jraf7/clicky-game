@@ -21,10 +21,47 @@ class App extends Component {
     message: ""
   };
 
-  clicked = key => {
+  clicked = id => {
     let prevState = this.state.characterSelect.slice();
     let score = this.state.score;
     let highScore = this.state.highScore;
+
+    if(!this.state.characterSelect.includes(id)) {
+      if (score === highScore) {
+        score++;
+        highScore++;
+      } else {
+        score++;
+      }
+      prevState.push(id);
+
+      if(prevState.length === 6){
+        this.setState({
+          score: 0,
+          highScore: score,
+          message: "WINNER. Click to play again.",
+          characterSelect: []
+        })
+        return;
+      }
+    }
+    
+    if(this.state.characterSelect.includes(id)) {
+      this.setState({
+        score: 0,
+        highScore: highScore,
+        characterSelect: [],
+        messege: "LOSER. Already clicked that one. Click to play again."
+      })
+      return;
+    };
+
+    this.setState({
+      score:score,
+      highScore: highScore,
+      clickedCharacter: prevState,
+      message: ""
+    });
 
     this.makeShuffle()
   }
@@ -41,8 +78,8 @@ class App extends Component {
        {this.state.characters.map( character => (
         <Character 
          image={character.image}
-         alt={character.key}
-         key={character.key}
+         alt={character.id}
+         id={character.id}
          clicked={this.clicked}
          />
        ))}
